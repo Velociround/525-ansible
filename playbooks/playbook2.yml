@@ -1,0 +1,21 @@
+- name: utilizando condição
+  hosts: all
+  tasks:
+   - name: install apache
+     package:
+      name: apache2
+     when: ansible_os_family == "Debian"
+
+   - name: install apache
+     package:
+      name: httpd
+     when: ansible_os_family == "RedHat"
+
+   - name: copy template file
+     template:
+      src: wp-config
+      dest: /var/www/html/
+     vars:
+      databasename: frodo
+      databasepasswd: 4linux
+      databasehost: postgres.dexter.com.br

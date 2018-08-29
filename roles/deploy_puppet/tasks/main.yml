@@ -1,0 +1,4 @@
+---
+# tasks file for deploy_puppet
+- include: packages.yml
+- include: install.yml

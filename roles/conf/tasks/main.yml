@@ -1,0 +1,11 @@
+---
+# tasks file for conf
+
+- name: incluir package
+  include: package.yml
+
+- name: incluir user
+  include: user.yml
+
+- name: incluir files
+  include: files.yml

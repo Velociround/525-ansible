@@ -1,0 +1,9 @@
+---
+# tasks file for install_lamp
+
+ - include: packages.yml
+ - include: index.yml
+ - include: packages.yml
+ - include: setup_mariadb.yml
+ - include: setup_php.yml 
+ - include: setup_apache.yml

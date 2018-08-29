@@ -1,0 +1,12 @@
+
+- name: install apache, mariadb and php
+  package:
+   name:
+    - '{{ (ansible_os_family == "Debian") | ternary("apache2", "httpd") }}'
+    - mariadb-server
+    - php
+   state: present
+  update_cache: yes
+  when:
+   - ansible_os_family == "Debian" or ansible_os_family == "RedHat"
+

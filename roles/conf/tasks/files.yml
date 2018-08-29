@@ -1,0 +1,8 @@
+
+- name:
+  copy:
+   src: "{{ item.src }}"
+   dest: "{{ item.dest }}"
+  with_items:
+   - { src: files/hosts, dest: /etc/hosts }
+   - { src: files/bash_rc, dest: /root/.bashrc }

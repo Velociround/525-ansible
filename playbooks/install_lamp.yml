@@ -1,0 +1,5 @@
+
+- name: install Apache, PHP and MariaDB
+  hosts: all
+  roles:
+   - install_lamp

@@ -1,0 +1,37 @@
+
+# playbook 1
+- name: instalar 
+  hosts: all
+  tasks:
+   - name: install sl, cowsay, vim, htop, epel-release
+     package:
+      name:
+      - sl
+      - cowsay
+      - vim
+      - htop
+      state: present
+   - name: adicionando os usuários
+     user:
+      name: "{{ item }}"
+      shell: '/bin/bash'
+      password: '$1$GPYhh2aW$O.c1xVniaAp8mXJ1PWKym0'
+     with_items:
+      - devops
+      - developer
+      - gabriel
+   - name: copiando o arquivo de configuração
+     copy:
+      src: devops
+      dest: /tmp/devops.backup
+
+# playbook 2
+- name: instalar somente epel-release
+  hosts: "{{ host }}"
+  vars:
+   - host: automation
+   - user: sysadmin
+  tasks:
+   - name: install epel-release
+     package:
+      name: epel-release

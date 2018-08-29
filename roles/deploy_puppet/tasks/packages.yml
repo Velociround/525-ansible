@@ -1,0 +1,14 @@
+
+- name: Add repository
+  yum:
+   name: https://yum.puppet.com/puppet5/puppet5-release-el-7.noarch.rpm
+  when:
+   - ansible_os_family == "RedHat"
+
+- name: Add repository
+  apt:
+   deb: https://apt.puppetlabs.com/puppet5-release-xenial.deb
+   state: present
+  when:
+   - ansible_os_family == "Debian"
+

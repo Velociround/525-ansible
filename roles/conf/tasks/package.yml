@@ -1,0 +1,11 @@
+
+- name: install main packages
+  package:
+   name:
+    - figlet
+    - vim
+    - joe
+    - sysstat
+    - htop
+    - cowsay
+   state: present

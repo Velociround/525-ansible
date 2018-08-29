@@ -1,0 +1,36 @@
+- name: trabalhando com operadores condicionais
+  hosts: all
+  tasks:
+   - name: test if file exists
+     shell: "test -f /etc/profile.d/dexter"
+     register: result
+     ignore_errors: yes
+
+   - name: setup variable
+     shell: echo "export MUNDIAL=palmeiras" > /etc/profile.d/dexter
+     when: result.rc == 0
+
+   - name: copy template with register
+     template:
+      src: teste
+      dest: /tmp/test.result
+
+   - name: copy template with register
+     template:
+      src: teste
+      dest: /tmp/test.result
+
+   - name: using block creation
+     blockinfile:
+      path: /tmp/test.result
+      block: |
+       zabbix-server=zabbix.dexter.com.br
+       agent=banana
+       opa=asast
+       novaastast=m126
+
+   - name: using line in file
+     lineinfile:
+      path: /tmp/test.result
+      line: zabbix-server=zabbix.4linux.com.br
+      regexp: '^zabbix-server'

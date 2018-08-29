@@ -1,0 +1,15 @@
+
+- name: start apache
+  service:
+   name: '{{ (ansible_os_family == "Debian") | ternary("apache2", "httpd") }}'
+   state: started
+   enabled: yes
+  when:
+   - ansible_os_family == "Debian" or ansible_os_family == "RedHat"
+
+- name: stop firewalld
+  service:
+   name: firewalld
+   state: stopped
+  when:
+   - ansible_os_family == "RedHat"

@@ -1,0 +1,5 @@
+
+- name: download, install and deploy puppet on all machines
+  hosts: all
+  roles:
+   - deploy_puppet

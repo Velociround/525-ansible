@@ -1,0 +1,35 @@
+- name: setup web server
+  hosts: all
+  tasks:
+   - name: install apache
+     package:
+      name: apache2
+     when: ansible_os_family == "Debian"
+
+   - name: install apache
+     package:
+      name: httpd
+     state: 
+     when: ansible_os_family == "RedHat"
+     notify:
+      - stop firewalld
+
+   - name: create world index
+     template:
+      src: index.html
+      dest: /var/www/html/index.html
+     notify:
+      - restart apache
+
+  handlers:
+   - name: restart apache
+     service:
+      name: '{{ (ansible_os_family == "Debian") | ternary("apache2", "httpd") }}'
+      state: restarted
+     when:
+      - ansible_os_family == "Debian" or ansible_os_family == "RedHat"
+
+   - name: stop firewalld
+     service:
+      name: firewalld
+      state: stopped
