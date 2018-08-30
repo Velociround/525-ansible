@@ -1,0 +1,17 @@
+
+- name: install gitlab
+  hosts: devops
+  tasks:
+   - name: add repository
+     shell: "curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash"
+
+   - name: install dependencies
+     package:
+      name:
+       - curl
+       - openssh-server
+       - ca-certificates
+       - postfix
+       - gitlab-ce
+     state: present
+     update_cache: yes
