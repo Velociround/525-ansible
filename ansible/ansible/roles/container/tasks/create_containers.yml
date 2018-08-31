@@ -1,0 +1,10 @@
+- name: Create container
+  docker_container:
+    name: "{{ item.name }}"
+    image: httpd
+    state: started
+    volumes:
+     - "{{ item.volume }}:/usr/local/apache2/htdocs/"
+  with_items:
+   - { name: green, volume: /green }
+   - { name: blue, volume: /blue }

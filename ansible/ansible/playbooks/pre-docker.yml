@@ -1,0 +1,17 @@
+- name: prepare docker environment
+  hosts: docker
+  tasks:
+   - name: install python-pip
+     package:
+      name:
+       - python-pip
+       - docker-ce
+
+   - name: install docker-py to manage ansible docker
+     pip:
+      name: docker-py
+
+   - name: create docker volume directory
+     file:
+      path: /index
+      state: directory

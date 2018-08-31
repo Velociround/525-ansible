@@ -1,0 +1,8 @@
+- name: remove apache2
+  hosts: docker
+  tasks:
+  
+    - name: remove apache2
+      package:
+       name: apache2
+       state: absent

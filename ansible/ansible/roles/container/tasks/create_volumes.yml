@@ -1,0 +1,24 @@
+#- name: create volume
+#  docker_volumes:
+#   name: "{{ item }}"
+#  with_items:
+#   - green
+#   - blue
+
+#- name: create green volume
+#  docker_volume:
+#   name: green
+#   state: present
+
+#- name: create blue volume
+#  docker_volume:
+#   name: blue
+#   state: present
+
+- name: create docker volume directory
+  file:
+    name: "{{ item }}"
+    state: directory
+  with_items:
+   - /blue
+   - /green

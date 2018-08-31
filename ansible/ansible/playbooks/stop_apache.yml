@@ -1,0 +1,7 @@
+- name: stop apache2
+  hosts: docker
+  tasks:
+    - name: stop apache2
+      service:
+       name: apache2
+       state: stopped

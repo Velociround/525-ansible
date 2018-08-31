@@ -1,0 +1,10 @@
+---
+# tasks file for deploy
+
+- include: check_running_container.yml
+
+- include: update_from_repository.yml
+
+- include: deploy_new_vhosts.yml
+
+- include: restart_nginx.yml

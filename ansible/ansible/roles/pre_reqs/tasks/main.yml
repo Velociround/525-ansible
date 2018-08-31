@@ -1,0 +1,6 @@
+---
+# tasks file for pre_reqs
+
+- include: install.yml
+
+- include: run.yml

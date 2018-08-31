@@ -1,0 +1,4 @@
+- name: GreenBlue prereqs pipeline for deploying in production
+  hosts: docker
+  roles:
+   - container

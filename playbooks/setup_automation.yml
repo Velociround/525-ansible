@@ -1,0 +1,26 @@
+
+- name: install rundeck and ansible
+  hosts: automation
+  tasks:
+   - name: add repository
+     yum: 
+      name:
+       - java-1.8.0
+       - https://repo.rundeck.org/latest.rpm
+       - epel-release
+
+   - name: install dependencies
+     package:
+      name:
+       - rundeck
+       - ansible
+     state: latest
+
+   - name: add ssh keys
+     copy:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+     with_items:
+      - { src: /etc/keys, dest: /etc/ }
+      - { src: /etc/ansible/hosts, dest: /etc/ansible/ }
+      - { src: /etc/ansible/ansible.cfg, dest: /etc/ansible/ }

@@ -1,0 +1,59 @@
+# não sei se devo usar isso mesmo
+- name: "copy {{ item }} index"
+  copy:
+   src: /var/lib/jenkins/workspace/deploy/index.html
+   dest: "/{{ item }}/index.html"
+  when: vhost.stat.exists == False
+  with_items:
+   - green
+
+# não sei se devo usar isso mesmo
+- name: "copy {{ item }} index"
+  copy:
+   src: /var/lib/jenkins/workspace/deploy/index.html
+   dest: "/{{ item }}/index.html"
+  when: vhost.stat.exists == True
+  with_items:
+   - blue
+
+- name: get green container ip
+  shell: "docker exec green hostname -I"
+  when: vhost.stat.exists == False
+  register: ipgreen
+
+- name: get blue container ip
+  shell: "docker exec blue hostname -I"
+  when: vhost.stat.exists == False
+  register: ipblue
+
+- name: "create {{ item }} vhosts file"
+  template:
+    src: "templates/{{ item }}.conf.j2"
+    dest: "/etc/nginx/sites-enabled/{{ item }}.conf"
+  when: vhost.stat.exists == False
+  with_items:
+   - green
+
+- name: "create {{ item }} vhosts file"
+  template:
+    src: "templates/{{ item }}.conf.j2"
+    dest: "/etc/nginx/sites-enabled/{{ item }}.conf"
+  when: vhost.stat.exists == True
+  with_items:
+   - blue
+
+- name: "delete {{ item }} vhosts"
+  file:
+    dest: "/etc/nginx/sites-enabled/{{ item }}.conf"
+    state: absent
+  when: vhost.stat.exists == True
+  with_items:
+   - green
+
+- name: "delete {{ item }} vhosts"
+  file:
+    dest: "/etc/nginx/sites-enabled/{{ item }}.conf"
+    state: absent
+  when: vhost.stat.exists == True
+  with_items:
+   - blue

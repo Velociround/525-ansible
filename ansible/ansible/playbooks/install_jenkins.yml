@@ -1,0 +1,18 @@
+- name: install jenkins
+  hosts: automation
+  tasks:
+    - name: install dependencies
+      package:
+       name: wget
+       state: present
+
+    - name: install repository
+      shell: "wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo"
+      
+    - name: install repository key
+      shell: "rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key"
+
+    - name: install jenkins
+      yum:
+       name: jenkins
+       update_cache: yes

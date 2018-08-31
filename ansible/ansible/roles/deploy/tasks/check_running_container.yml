@@ -1,0 +1,5 @@
+
+- name: check running container
+  stat:
+    path: /etc/nginx/sites-enabled/green.conf
+  register: vhost
